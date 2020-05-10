@@ -1,0 +1,37 @@
+<html>
+	<script>
+		function preloadImages(sources, callback) {
+			let counter = 0;
+
+			sources.forEach(function(item, i) {
+				let img = document.createElement('img');
+				img.src = sources[i];
+				
+				img.onload = img.onerror = function() {
+					counter++;
+					if(counter == sources.length) callback();
+				}
+			})   
+		}
+		
+		let sources = [
+			"https://js.cx/images-load/1.jpg",
+			"https://js.cx/images-load/2.jpg",
+			"https://js.cx/images-load/3.jpg"
+		];
+
+		for (let i = 0; i < sources.length; i++) { sources[i] += '?' + Math.random(); }
+
+		function testLoaded() {
+			let widthSum = 0;
+			
+			for (let i = 0; i < sources.length; i++) {
+				let img = document.createElement('img');
+				img.src = sources[i];
+				widthSum += img.width;
+			}
+			alert(widthSum);
+		}
+		preloadImages(sources, testLoaded);
+	</script>
+</html>
